@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 from math import atan2,cos,sin
 import numpy as np
+import matplotlib.pyplot as plt
 
-def cpmg_Baldwin(kex,pb,d_omega,ncyc,T_relax,R2A,R2B):
+def calculate_cpmg_profile(kex,pb,d_omega,nu_cpmg,T_relax,R2A,R2B):
     # pa=(1-pb)
     keg=kex*(1-pb)
     kge=kex*pb
     deltaR2=R2B-R2A
-    nu_cpmg=ncyc/T_relax
+    ncyc = nu_cpmg * T_relax
+    # nu_cpmg=ncyc/T_relax
     tau_cpmg=T_relax/(4.0*ncyc)  #time for one free precession element
 
     #########################################################################
@@ -49,13 +51,15 @@ def cpmg_Baldwin(kex,pb,d_omega,ncyc,T_relax,R2A,R2B):
 
 
 
-    result=[]
+    nu_cpmgs = []
+    R2effs = []
     for i in range(len(ncyc)):
-        result.append((nu_cpmg[i],Minty[i]))
-    return result
+        nu_cpmgs.append(nu_cpmg[i])
+        R2effs.append(Minty[i])
+    return nu_cpmgs, R2effs
 
 if __name__ == "__main__":
-    import matplotlib.pyplot as plt
+
 
     kex=1000.0
     pb=0.1
@@ -65,7 +69,7 @@ if __name__ == "__main__":
     T_relax=0.1
 
     ncyc=np.arange(1,201,1)
-    result=cpmg_Baldwin(kex,pb,d_omega,ncyc,T_relax,R2A,R2B)
+    result=calculate_cpmg_profile(kex,pb,d_omega,ncyc,T_relax,R2A,R2B)
     x=[]
     y=[]
     for point in result:
