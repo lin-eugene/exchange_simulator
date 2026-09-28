@@ -1,6 +1,8 @@
 # Exchange Simulator
 
-A two-state chemical exchange simulator with a Streamlit interface for exploring CPMG, CEST, transverse relaxation, R1rho, and cfast profiles.
+A two-state chemical exchange simulator, originally built when I was writing my thesis to better understand the various chemical exchange experiments I was doing during my PhD.
+
+The repository contains a Streamlit app to explore how CPMG, CEST, transverse relaxation, R1rho, and $c_{fast}$ profiles change with different two-site exchange parameters. The R1rho experiments simulated here are constant-time R1rho experiments originally reported in Yuwen et al. ([2018](https://pubmed.ncbi.nlm.nih.gov/29303268/)).
 
 ## Requirements
 
