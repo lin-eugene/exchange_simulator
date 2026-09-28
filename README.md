@@ -4,6 +4,10 @@ A two-state chemical exchange simulator, originally built when I was writing my 
 
 The repository contains a Streamlit app to explore how CPMG, CEST, transverse relaxation, R1rho, and $c_{fast}$ profiles change with different two-site exchange parameters. The R1rho experiments simulated here are constant-time R1rho experiments originally reported in Yuwen et al. ([2018](https://pubmed.ncbi.nlm.nih.gov/29303268/)).
 
+![Exchange simulator](image.png)
+
+*Example output showing CPMG, CEST, transverse relaxation, R1rho, and cfast profiles.*
+
 ## Requirements
 
 - Python 3.10 or newer
