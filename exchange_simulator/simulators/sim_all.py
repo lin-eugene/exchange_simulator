@@ -1,12 +1,12 @@
-from simulators.CEST_models import calculate_CEST_profile, calculate_deltaR2
-from simulators.R1rho_numpy import CalculateR1rhoProfile, calculate_R1
-from simulators.liouvillian import LiouvillianNumPy
-from simulators.cpmg_baldwin import calculate_cpmg_profile
+from .CEST_models import calculate_CEST_profile, calculate_deltaR2
+from .R1rho_numpy import CalculateR1rhoProfile, calculate_R1
+from .liouvillian import LiouvillianNumPy
+from .cpmg_baldwin import calculate_cpmg_profile
 import numpy as np
-from simulators.simulate_spectrum import simulate_spectrum as sim_spec
-from simulators.unit_conversions import *
-from simulators.exsimExchange import spec2Dproj
-from simulators.CPMG_numerical import CalculateCPMGProfile
+from .simulate_spectrum import simulate_spectrum as sim_spec
+from .unit_conversions import *
+from .exsimExchange import spec2Dproj
+from .CPMG_numerical import CalculateCPMGProfile
 
 class SimulateExchange:
     def __init__(self, params):

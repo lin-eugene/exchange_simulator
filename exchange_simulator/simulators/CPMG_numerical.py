@@ -1,8 +1,8 @@
-from simulators.liouvillian import LiouvillianNumPy
+from .liouvillian import LiouvillianNumPy
 import numpy as np
 from scipy.linalg import expm
 from collections import defaultdict
-from simulators.compute_fid import calculate_fid, calculate_max_intensity, compute_spectrum
+from .compute_fid import calculate_fid, calculate_max_intensity, compute_spectrum
 
 from numpy.linalg import matrix_power
 

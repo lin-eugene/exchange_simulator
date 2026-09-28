@@ -1,5 +1,5 @@
-from simulators.liouvillian import LiouvillianNumPy
-import simulators.parameter_sets
+from .liouvillian import LiouvillianNumPy
+from . import parameter_sets
 import numpy as np
 from itertools import repeat
 

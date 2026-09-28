@@ -3,7 +3,7 @@ import numpy as np
 from scipy.linalg import expm
 from collections import defaultdict
 import matplotlib.pyplot as plt
-from simulators.liouvillian import LiouvillianNumPy, LiouvillianSymPy
+from .liouvillian import LiouvillianNumPy, LiouvillianSymPy
 from scipy.optimize import curve_fit
 
 

@@ -8,6 +8,7 @@ setup(
         "numpy",
         "scipy",
         "matplotlib",
-        "sympy"
+        "sympy",
+        "streamlit"
     ]
 )
