@@ -161,88 +161,88 @@ class CalculateCPMGProfile:
         
 
 
-# class SimulateCPMGDaiwen:
-#     def __init__(self, params):
-#         self.params = params
+class SimulateCPMGDaiwen:
+    def __init__(self, params):
+        self.params = params
 
-#         assert "R2A" in params.keys()
-#         assert "R2B" in params.keys()
-#         assert "R1A" in params.keys()
-#         assert "R1B" in params.keys()
-#         assert "pb" in params.keys()
-#         assert "kex" in params.keys()
-#         assert "omegaA" in params.keys()
-#         assert "omegaB" in params.keys()
-#         # assert "M_eqA" in params.keys()
-#         # assert "M_eqB" in params.keys()
-#         assert "B0" in params.keys()
+        assert "R2A" in params.keys()
+        assert "R2B" in params.keys()
+        assert "R1A" in params.keys()
+        assert "R1B" in params.keys()
+        assert "pb" in params.keys()
+        assert "kex" in params.keys()
+        assert "omegaA" in params.keys()
+        assert "omegaB" in params.keys()
+        # assert "M_eqA" in params.keys()
+        # assert "M_eqB" in params.keys()
+        assert "B0" in params.keys()
 
 
-#         self.params['M_eqA'] = (1- self.params['pb'])/10
-#         self.params['M_eqB'] = self.params['pb']/10
+        self.params['M_eqA'] = (1- self.params['pb'])/10
+        self.params['M_eqB'] = self.params['pb']/10
 
-#         self.rf_liouvillian = RFLiouvillian(params).L[1:7, 1:7]
-#         # print(self.rf_liouvillian)
-#         self.pi_duration = 1/(2*params['omega1'])
-#         # print(self.pi_duration)
+        self.rf_liouvillian = RFLiouvillian(params).L[1:7, 1:7]
+        # print(self.rf_liouvillian)
+        self.pi_duration = 1/(2*params['omega1'])
+        # print(self.pi_duration)
 
-#         free_precession_liouvillian_params = params.copy()
-#         free_precession_liouvillian_params['omega1'] = 0
-#         self.free_precession_liouvillian = LiouvillianNumPy(free_precession_liouvillian_params).L6x6
+        free_precession_liouvillian_params = params.copy()
+        free_precession_liouvillian_params['omega1'] = 0
+        self.free_precession_liouvillian = LiouvillianNumPy(free_precession_liouvillian_params).L6x6
 
         
-#     def calculate_nm(self, ncyc: int) -> tuple:
-#         m = ncyc % 2
-#         n = 0
-#         for i in range(ncyc):
-#             if (i+1) % 2 == 1:
-#                 n += 1
-#         return n, m
+    def calculate_nm(self, ncyc: int) -> tuple:
+        m = ncyc % 2
+        n = 0
+        for i in range(ncyc):
+            if (i+1) % 2 == 1:
+                n += 1
+        return n, m
 
-#     def simulate_CPMG(self,
-#                       ncyc: np.ndarray,
-#                       T_relax: float=0.08):
+    def simulate_CPMG(self,
+                      ncyc: np.ndarray,
+                      T_relax: float=0.08):
 
-#         self.T_relax = T_relax
-#         self.nu_cpmg = ncyc / self.T_relax
-#         # nu_cpmg=ncyc/T_relax
-#         self.tau_cpmg = self.T_relax/(4.0*ncyc) 
-#         n, m = self.calculate_nm(ncyc)
+        self.T_relax = T_relax
+        self.nu_cpmg = ncyc / self.T_relax
+        # nu_cpmg=ncyc/T_relax
+        self.tau_cpmg = self.T_relax/(4.0*ncyc) 
+        n, m = self.calculate_nm(ncyc)
 
-#         # print(self.nu_cpmg, self.tau_cpmg)
+        # print(self.nu_cpmg, self.tau_cpmg)
 
-#         L = self.rf_liouvillian #+ self.free_precession_liouvillian
-#         pulse_propagator = expm(L * self.pi_duration)
-#         tau_propagator = expm(self.free_precession_liouvillian * self.tau_cpmg)
-#         # eig_val_pulse, CoB_mat_pulse = np.linalg.eig(L * self.pi_duration)
-#         # eig_val_delay, CoB_mat_delay = np.linalg.eig(self.free_precession_liouvillian * self.tau_cpmg)
+        L = self.rf_liouvillian #+ self.free_precession_liouvillian
+        pulse_propagator = expm(L * self.pi_duration)
+        tau_propagator = expm(self.free_precession_liouvillian * self.tau_cpmg)
+        # eig_val_pulse, CoB_mat_pulse = np.linalg.eig(L * self.pi_duration)
+        # eig_val_delay, CoB_mat_delay = np.linalg.eig(self.free_precession_liouvillian * self.tau_cpmg)
 
-#         # diag_mat_pulse = np.diag(np.exp(eig_val_pulse))
-#         # diag_mat_delay = np.diag(np.exp(eig_val_delay))
+        # diag_mat_pulse = np.diag(np.exp(eig_val_pulse))
+        # diag_mat_delay = np.diag(np.exp(eig_val_delay))
 
-#         # pulse_propagator = CoB_mat_pulse @ diag_mat_pulse @ np.linalg.inv(CoB_mat_pulse)
-#         # tau_propagator = CoB_mat_delay @ diag_mat_delay @ np.linalg.inv(CoB_mat_delay)
+        # pulse_propagator = CoB_mat_pulse @ diag_mat_pulse @ np.linalg.inv(CoB_mat_pulse)
+        # tau_propagator = CoB_mat_delay @ diag_mat_delay @ np.linalg.inv(CoB_mat_delay)
         
 
-#         x_0 = np.array([
-#                         # 0,
-#                         0,
-#                         1-self.params['pb'],
-#                         0,
-#                         0,
-#                         self.params['pb'],
-#                         0])
-#         # print(f'{x_0=}')
-#         # print((tau_propagator @ pulse_propagator @ tau_propagator @ tau_propagator @ pulse_propagator @ tau_propagator) @ x_0)
-#         cpmg = (tau_propagator @ pulse_propagator @ tau_propagator @ tau_propagator @ pulse_propagator @ tau_propagator)
-#         total_propagator = matrix_power(cpmg, ncyc)
+        x_0 = np.array([
+                        # 0,
+                        0,
+                        1-self.params['pb'],
+                        0,
+                        0,
+                        self.params['pb'],
+                        0])
+        # print(f'{x_0=}')
+        # print((tau_propagator @ pulse_propagator @ tau_propagator @ tau_propagator @ pulse_propagator @ tau_propagator) @ x_0)
+        cpmg = (tau_propagator @ pulse_propagator @ tau_propagator @ tau_propagator @ pulse_propagator @ tau_propagator)
+        total_propagator = matrix_power(cpmg, ncyc)
         
-#         total_evol = total_propagator @ x_0
-#         # print(total_evol[1]/x_0[1])
+        total_evol = total_propagator @ x_0
+        # print(total_evol[1]/x_0[1])
 
-#         R2eff = -1/self.T_relax * np.log(total_evol[1]/x_0[1])
+        R2eff = -1/self.T_relax * np.log(total_evol[1]/x_0[1])
 
-#         return R2eff
+        return R2eff
 
 if __name__ == "__main__":
     params ={"R2A": 0,
